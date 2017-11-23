@@ -5,6 +5,7 @@
  */
 package com.jfc.eclinic.rest;
 
+import com.jfc.eclinic.dto.Address;
 import com.jfc.eclinic.services.AddressService;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -27,19 +28,18 @@ import javax.ws.rs.core.Response;
 @Path("address")
 public class AddressRestEndPoint {
 
-    @Inject AddressService addressService;
-    
+    @Inject
+    AddressService addressService;
 
     @POST
     @Path("validate")
-    public void addValid(@Valid @Size (max = 4, min = 2) String value) {
+    public void addValid(@Valid @Size(max = 4, min = 2) String value) {
         System.out.println(value);
     }
-    
+
     @GET
     @Path("addressList")
-    public Response getAddress() throws Exception
-    {
+    public Response getAddress() throws Exception {
         JsonArray build = addressService.get().stream().map(h -> Json.createObjectBuilder()
                 .add("id", h.getAddressId())
                 .add("name", h.getStreetName())
@@ -47,29 +47,28 @@ public class AddressRestEndPoint {
                 .collect(Json::createArrayBuilder, JsonArrayBuilder::add, JsonArrayBuilder::add)
                 .build();
         return Response.ok()
-            .status(200).entity(build).build();
+                .status(200).entity(build).build();
     }
-    
+
     @POST
     @Path("edit")
-    public Response editAddress(com.jfc.eclinic.dto.Address get) throws Exception
-    {
+    public Response editAddress(Address get) throws Exception {
         addressService.update(get);
         return Response.ok().build();
     }
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("type/{id}")
-    public Response post(@PathParam("id")String id)
-    {
+    public Response post(@PathParam("id") String id) {
         System.out.println(id);
-        return Response.ok().entity("type POST"+ id).build();
+        return Response.ok().entity("type POST" + id).build();
     }
+
     @POST
     @Path("editAddress")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response edit(com.jfc.eclinic.dto.Address a) throws Exception
-    {
+    public Response edit(com.jfc.eclinic.dto.Address a) throws Exception {
         addressService.update(a);
         return Response.ok().build();
     }

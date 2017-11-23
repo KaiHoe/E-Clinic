@@ -9,8 +9,8 @@ import com.jfc.eclinic.dao.exception.RepositoryException;
 import com.jfc.eclinic.dao.CountryRepository;
 import com.jfc.eclinic.dto.Country;
 import java.util.List;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -18,6 +18,7 @@ import javax.persistence.Query;
  *
  * @author jfc
  */
+@Named
 public class CountryRepositoryImpl implements CountryRepository {
 
     @PersistenceContext(unitName = "eclinicPU")
