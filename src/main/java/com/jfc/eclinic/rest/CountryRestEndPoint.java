@@ -38,7 +38,7 @@ public class CountryRestEndPoint {
     @Path("create")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(Country value) {
+    public Response create(@Valid Country value) {
         try {
             countryService.create(value);
         } catch (Exception ex) {

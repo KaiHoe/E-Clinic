@@ -9,6 +9,7 @@ import com.jfc.eclinic.dao.exception.RepositoryException;
 import com.jfc.eclinic.dao.AddressRepository;
 import com.jfc.eclinic.dto.Address;
 import java.util.List;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
@@ -18,6 +19,7 @@ import javax.persistence.Query;
  *
  * @author jfc
  */
+@Named
 public class AddressRepositoryImpl implements AddressRepository {
 
     @PersistenceContext(unitName = "eclinicPU")

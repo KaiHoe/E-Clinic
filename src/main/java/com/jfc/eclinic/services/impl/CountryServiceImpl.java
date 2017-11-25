@@ -9,12 +9,14 @@ import com.jfc.eclinic.dao.CountryRepository;
 import com.jfc.eclinic.dto.Country;
 import com.jfc.eclinic.services.CountryService;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author jfc
  */
+@Stateless
 public class CountryServiceImpl implements CountryService {
 
     private CountryRepository countryRepository;

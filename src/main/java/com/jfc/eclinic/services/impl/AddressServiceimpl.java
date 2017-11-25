@@ -9,12 +9,14 @@ import com.jfc.eclinic.dao.AddressRepository;
 import com.jfc.eclinic.dto.Address;
 import com.jfc.eclinic.services.AddressService;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author F
  */
+@Stateless
 public class AddressServiceimpl implements AddressService {
 
     private AddressRepository addressRepository;
