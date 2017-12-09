@@ -31,7 +31,7 @@ public interface AddressRepository  {
     /**
      * @param t
      * @throws com.jfc.eclinic.dao.exception.RepositoryException*/
-    public void remove(int t) throws RepositoryException;
+    public void remove(Address t) throws RepositoryException;
     /**
      * @param t
      * @return

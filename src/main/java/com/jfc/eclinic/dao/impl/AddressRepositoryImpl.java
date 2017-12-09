@@ -27,17 +27,7 @@ public class AddressRepositoryImpl implements AddressRepository {
 
     @Override
     public void add(Address t) throws RepositoryException {
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.persist(t);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-                throw ex;
-            }
-        }
+        entityManager.persist(t);
     }
 
     @Override
@@ -47,50 +37,23 @@ public class AddressRepositoryImpl implements AddressRepository {
 
     @Override
     public void update(Address t) throws RepositoryException {
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.merge(t);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-                throw ex;
-            }
-        }
+        entityManager.merge(t);
     }
 
     @Override
-    public void remove(int t) throws RepositoryException {
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.remove(t);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-                throw ex;
-            }
-        }
+    public void remove(Address t) throws RepositoryException {
+        entityManager.remove(t);
     }
 
     @Override
     public Address findById(int t) throws RepositoryException {
-        EntityTransaction transaction = entityManager.getTransaction();
+
         Query createNamedQuery = entityManager.createNamedQuery("Address.findByAddressId");
         List resultList = null;
-        try {
-            transaction.begin();
-            createNamedQuery.setParameter("addressId", t);
-            resultList = createNamedQuery.getResultList();
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-                throw ex;
-            }
-        }
+
+        createNamedQuery.setParameter("addressId", t);
+        resultList = createNamedQuery.getResultList();
+
         return resultList != null ? (Address) resultList.get(0) : null;
     }
 

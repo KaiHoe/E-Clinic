@@ -5,8 +5,8 @@
  */
 package com.jfc.eclinic.rest;
 
-import com.jfc.eclinic.dto.Country;
-import com.jfc.eclinic.services.CountryService;
+import com.jfc.eclinic.dto.Person;
+import com.jfc.eclinic.services.PersonService;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -29,18 +29,18 @@ import javax.ws.rs.core.Response;
  * @author jfc
  */
 @Path("country")
-public class CountryRestEndPoint {
+public class PersonRestEndPoint {
 
     @Inject
-    CountryService countryService;
+    PersonService personService;
 
     @POST
     @Path("create")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(@Valid Country value) {
+    public Response create(@Valid Person value) {
         try {
-            countryService.create(value);
+            personService.create(value);
         } catch (Exception ex) {
             return Response.ok().header("Exception", ex.getMessage()).build();
         }
@@ -53,9 +53,9 @@ public class CountryRestEndPoint {
     public Response find() {
         JsonArray build = null;
         try {
-            build = countryService.get().stream().map(h -> Json.createObjectBuilder()
-                    .add("id", h.getCountryId())
-                    .add("name", h.getCountryName())
+            build = personService.get().stream().map(h -> Json.createObjectBuilder()
+                    .add("id", h.getPersonId())
+                    .add("name", h.getFirstName())
                     .build())
                     .collect(Json::createArrayBuilder, JsonArrayBuilder::add, JsonArrayBuilder::add)
                     .build();
@@ -71,8 +71,8 @@ public class CountryRestEndPoint {
     public Response find(@PathParam("id") @Valid String id) {
         JsonObject build = null;
         try {
-            Country get = countryService.get(Integer.valueOf(id));
-            build = Json.createObjectBuilder().add("id", get.getCountryId()).add("name", get.getCountryName()).build();
+            Person get = personService.get(Integer.valueOf(id));
+            build = Json.createObjectBuilder().add("id", get.getPersonId()).add("name", get.getFirstName()).build();
 
         } catch (Exception ex) {
             return Response.ok().header("Exception", ex.getMessage()).build();
@@ -86,8 +86,8 @@ public class CountryRestEndPoint {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("id") String id) throws Throwable {
         try {
-            Country get = countryService.get(Integer.valueOf(id));
-            countryService.delete(get);
+            Person get = personService.get(Integer.valueOf(id));
+            personService.delete(get);
         } catch (Exception ex) {
             return Response.ok().header("Exception", ex.getMessage()).build();
         }
@@ -98,9 +98,9 @@ public class CountryRestEndPoint {
     @Path("update")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@Valid Country value) throws Throwable {
+    public Response update(@Valid Person value) throws Throwable {
         try {
-            countryService.update(value);
+            personService.update(value);
         } catch (Exception ex) {
             return Response.ok().header("Exception", ex.getMessage()).build();
         }

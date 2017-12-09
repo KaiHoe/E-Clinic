@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  * @author jfc
  */
 public interface AddressService {
-    
+
     /**
      *
      * @return @throws Exception
@@ -51,6 +51,6 @@ public interface AddressService {
      * @param id
      * @throws Exception
      */
-    void delete(@Min(0) int id) throws Exception;
+    void delete(Address id) throws Exception;
 
 }

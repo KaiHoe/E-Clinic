@@ -50,7 +50,7 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public void delete(int id) throws Exception {
+    public void delete(Country id) throws Exception {
         countryRepository.remove(id);
     }
 

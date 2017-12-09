@@ -6,36 +6,36 @@
 package com.jfc.eclinic.dao;
 
 import com.jfc.eclinic.dao.exception.RepositoryException;
-import com.jfc.eclinic.dto.Country;
+import com.jfc.eclinic.dto.City;
 import java.util.List;
 
 /**
  *
  * @author jfc
  */
-public interface CountryRepository  {
+public interface CityRepository  {
     
     /**
      * @param t
      * @throws com.jfc.eclinic.dao.exception.RepositoryException
      */
-    public void add(Country t) throws RepositoryException;
+    public void add(City t) throws RepositoryException;
     /**
      * @return
      * @throws com.jfc.eclinic.dao.exception.RepositoryException */
-    public List<Country> findAll() throws RepositoryException;
+    public List<City> findAll() throws RepositoryException;
     /**
      * @param t*
      * @throws com.jfc.eclinic.dao.exception.RepositoryException*/
-    public void update(Country t) throws RepositoryException;
+    public void update(City t) throws RepositoryException;
     /**
      * @param t
      * @throws com.jfc.eclinic.dao.exception.RepositoryException*/
-    public void remove(Country t) throws RepositoryException;
+    public void remove(City t) throws RepositoryException;
     /**
      * @param t
      * @return
      * @throws com.jfc.eclinic.dao.exception.RepositoryException*/
-    public Country findById(int t) throws RepositoryException;
+    public City findById(int t) throws RepositoryException;
 
 }

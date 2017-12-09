@@ -5,8 +5,9 @@
  */
 package com.jfc.eclinic.dao.impl;
 
+import com.jfc.eclinic.dao.CityRepository;
 import com.jfc.eclinic.dao.exception.RepositoryException;
-import com.jfc.eclinic.dao.CountryRepository;
+import com.jfc.eclinic.dto.City;
 import com.jfc.eclinic.dto.Country;
 import java.util.List;
 import javax.inject.Named;
@@ -19,31 +20,31 @@ import javax.persistence.Query;
  * @author jfc
  */
 @Named
-public class CountryRepositoryImpl implements CountryRepository {
+public class CityRepositoryImpl implements CityRepository {
 
     @PersistenceContext(unitName = "eclinicPU")
     EntityManager entityManager;
 
     @Override
-    public void add(Country t) throws RepositoryException {
+    public void add(City t) throws RepositoryException {
         entityManager.persist(t);
 
     }
 
     @Override
-    public List<Country> findAll() {
-        return entityManager.createNamedQuery("Country.findAll").getResultList();
+    public List<City> findAll() {
+        return entityManager.createNamedQuery("City.findAll").getResultList();
     }
 
     @Override
-    public void update(Country t) throws RepositoryException {
+    public void update(City t) throws RepositoryException {
         entityManager.merge(t);
 
     }
 
     @Override
-    public void remove(Country t) throws RepositoryException {
-        Country current = null;
+    public void remove(City t) throws RepositoryException {
+        City current = null;
         if (!entityManager.contains(t)) {
             current = entityManager.merge(t);
         }
@@ -52,14 +53,14 @@ public class CountryRepositoryImpl implements CountryRepository {
     }
 
     @Override
-    public Country findById(int t) throws RepositoryException {
-        Query createNamedQuery = entityManager.createNamedQuery("Country.findByCountryId");
+    public City findById(int t) throws RepositoryException {
+        Query createNamedQuery = entityManager.createNamedQuery("City.findByCityId");
         List resultList = null;
 
-        createNamedQuery.setParameter("countryId", t);
+        createNamedQuery.setParameter("cityId", t);
         resultList = createNamedQuery.getResultList();
 
-        return resultList != null ? (Country) resultList.get(0) : null;
+        return resultList != null ? (City) resultList.get(0) : null;
     }
 
 }

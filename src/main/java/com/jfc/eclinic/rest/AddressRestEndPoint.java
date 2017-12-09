@@ -11,11 +11,14 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 import javax.validation.Valid;
-import javax.ws.rs.Path;
-import javax.validation.constraints.Size;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -32,44 +35,77 @@ public class AddressRestEndPoint {
     AddressService addressService;
 
     @POST
-    @Path("validate")
-    public void addValid(@Valid @Size(max = 4, min = 2) String value) {
-        System.out.println(value);
+    @Path("create")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response create(@Valid Address value) {
+        try {
+            addressService.create(value);
+        } catch (Exception ex) {
+            return Response.ok().header("Exception", ex.getMessage()).build();
+        }
+        return Response.ok().entity("Data is saved").build();
     }
 
     @GET
-    @Path("addressList")
-    public Response getAddress() throws Exception {
-        JsonArray build = addressService.get().stream().map(h -> Json.createObjectBuilder()
-                .add("id", h.getAddressId())
-                .add("name", h.getStreetName())
-                .build())
-                .collect(Json::createArrayBuilder, JsonArrayBuilder::add, JsonArrayBuilder::add)
-                .build();
-        return Response.ok()
-                .status(200).entity(build).build();
-    }
-
-    @POST
-    @Path("edit")
-    public Response editAddress(Address get) throws Exception {
-        addressService.update(get);
-        return Response.ok().build();
-    }
-
-    @POST
+    @Path("find")
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("type/{id}")
-    public Response post(@PathParam("id") String id) {
-        System.out.println(id);
-        return Response.ok().entity("type POST" + id).build();
+    public Response find() {
+        JsonArray build = null;
+        try {
+            build = addressService.get().stream().map(h -> Json.createObjectBuilder()
+                    .add("id", h.getAddressId())
+                    .add("name", h.getStreetName())
+                    .build())
+                    .collect(Json::createArrayBuilder, JsonArrayBuilder::add, JsonArrayBuilder::add)
+                    .build();
+        } catch (Exception ex) {
+            return Response.ok().header("Exception", ex.getMessage()).build();
+        }
+        return Response.ok().entity(build == null ? "No data found" : build).build();
     }
 
-    @POST
-    @Path("editAddress")
+    @GET
+    @Path("find/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response edit(com.jfc.eclinic.dto.Address a) throws Exception {
-        addressService.update(a);
-        return Response.ok().build();
+    public Response find(@PathParam("id") @Valid String id) {
+        JsonObject build = null;
+        try {
+            Address get = addressService.get(Integer.valueOf(id));
+            System.out.println(get.getStreetName());
+            build = Json.createObjectBuilder().add("id", get.getAddressId()).add("name", get.getStreetName()).build();
+
+        } catch (Exception ex) {
+            return Response.ok().header("Exception", ex.getMessage()).build();
+        }
+        return Response.ok().entity(build == null ? "No data found" : build).build();
     }
+
+    @DELETE
+    @Path("delete/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") String id) throws Throwable {
+        try {
+            Address get = addressService.get(Integer.valueOf(id));
+            addressService.delete(get);
+        } catch (Exception ex) {
+            return Response.ok().header("Exception", ex.getMessage()).build();
+        }
+        return Response.ok().entity("Data is deleted").build();
+    }
+
+    @PUT
+    @Path("update")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(@Valid Address value) throws Throwable {
+        try {
+            addressService.update(value);
+        } catch (Exception ex) {
+            return Response.ok().header("Exception", ex.getMessage()).build();
+        }
+        return Response.ok().entity("Date is updated").build();
+    }
+
 }

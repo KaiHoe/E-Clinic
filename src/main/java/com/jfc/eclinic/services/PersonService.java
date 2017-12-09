@@ -5,7 +5,7 @@
  */
 package com.jfc.eclinic.services;
 
-import com.jfc.eclinic.dto.Country;
+import com.jfc.eclinic.dto.Person;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -15,13 +15,13 @@ import javax.validation.constraints.NotNull;
  *
  * @author jfc
  */
-public interface CountryService {
+public interface PersonService {
         /**
      *
      * @return @throws Exception
      */
     @NotNull
-    List<Country> get() throws Exception;
+    List<Person> get() throws Exception;
 
     /**
      *
@@ -29,27 +29,27 @@ public interface CountryService {
      * @return
      * @throws Exception
      */
-    Country get(@Min(0) int id) throws Exception;
+    Person get(@Min(0) int id) throws Exception;
 
     /**
      *
      * @param value
      * @throws Exception
      */
-    void update(@NotNull @Valid Country value) throws Exception;
+    void update(@NotNull @Valid Person value) throws Exception;
 
     /**
      *
      * @param value
      * @throws Exception
      */
-    void create(@NotNull @Valid Country value) throws Exception;
+    void create(@NotNull @Valid Person value) throws Exception;
 
     /**
      *
      * @param id
      * @throws Exception
      */
-    void delete(Country id) throws Exception;
+    void delete(Person id) throws Exception;
 
 }

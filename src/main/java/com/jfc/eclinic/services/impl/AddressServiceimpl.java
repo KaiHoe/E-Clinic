@@ -29,42 +29,6 @@ public class AddressServiceimpl implements AddressService {
     public AddressServiceimpl() {
     }
 
-    
-
-    /*public Address findTheAddress(Address addressTo) throws Exception {
-        List<Object> docs = (List<Object>) sqlRepository.findAll("Address.findAll");
-        for (Object o : docs) {
-            if (((Address) o).getCityId().getCityId().intValue() == addressTo.getCityId().getCityId().intValue()
-                    && ((Address) o).getBuildingNumber() == addressTo.getBuildingNumber()
-                    && ((Address) o).getStreetName().equals(addressTo.getStreetName())) {
-                return (Address) o;
-            }
-        }
-
-        return addressTo;
-    }*/
-
- /* public String checkIfAddressExists(Address addressToMatch) throws Exception {
-        String msg = "Save";
-        List<Object> address = (List<Object>) sqlRepository.findAll("Address.findAll");
-        for (Object o : address) {
-            if (((Address) o).getCityId().getCityId().intValue() == addressToMatch.getCityId().getCityId().intValue()
-                    && ((Address) o).getBuildingNumber() == addressToMatch.getBuildingNumber()
-                    && ((Address) o).getStreetName().equals(addressToMatch.getStreetName())) {
-                return "Exist";
-            }
-        }
-
-        return msg;
-    }*/
-    /*public void persistAddress(Address address) throws Exception {
-        addressRepository.add(address);
-    }
-
-    public void editAddress(Address address) throws Exception {
-        addressRepository.update(address);
-    }*/
-
     @Override
     public List<Address> get() throws Exception {
         return addressRepository.findAll();
@@ -86,7 +50,7 @@ public class AddressServiceimpl implements AddressService {
     }
 
     @Override
-    public void delete(int id) throws Exception {
+    public void delete(Address id) throws Exception {
         addressRepository.remove(id);
     }
 }
