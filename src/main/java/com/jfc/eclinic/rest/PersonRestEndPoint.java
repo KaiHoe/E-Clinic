@@ -28,7 +28,7 @@ import javax.ws.rs.core.Response;
  *
  * @author jfc
  */
-@Path("country")
+@Path("person")
 public class PersonRestEndPoint {
 
     @Inject
